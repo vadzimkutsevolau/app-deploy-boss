@@ -1,0 +1,6 @@
+name,email,rsvp_status,ticket_code,checked_in_at
+Ada Lovelace,ada@example.com,going,A1B2C3D4E5,2026-04-20T18:32:11Z
+Grace Hopper,grace@example.com,going,F6G7H8I9J0,2026-04-20T18:35:42Z
+Alan Turing,alan@example.com,going,K1L2M3N4O5,
+Margaret Hamilton,margaret@example.com,waitlist,P6Q7R8S9T0,
+Katherine Johnson,katherine@example.com,cancelled,U1V2W3X4Y5,
