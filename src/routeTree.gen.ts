@@ -17,6 +17,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as HostNewRouteImport } from './routes/host.new'
 import { Route as EventsSlugRouteImport } from './routes/events.$slug'
 import { Route as DashboardEventsNewRouteImport } from './routes/dashboard.events.new'
+import { Route as DashboardEventsIdEditRouteImport } from './routes/dashboard.events.$id.edit'
 
 const TicketsRoute = TicketsRouteImport.update({
   id: '/tickets',
@@ -58,6 +59,11 @@ const DashboardEventsNewRoute = DashboardEventsNewRouteImport.update({
   path: '/events/new',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardEventsIdEditRoute = DashboardEventsIdEditRouteImport.update({
+  id: '/events/$id/edit',
+  path: '/events/$id/edit',
+  getParentRoute: () => DashboardRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/events/$slug': typeof EventsSlugRoute
   '/host/new': typeof HostNewRoute
   '/dashboard/events/new': typeof DashboardEventsNewRoute
+  '/dashboard/events/$id/edit': typeof DashboardEventsIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/events/$slug': typeof EventsSlugRoute
   '/host/new': typeof HostNewRoute
   '/dashboard/events/new': typeof DashboardEventsNewRoute
+  '/dashboard/events/$id/edit': typeof DashboardEventsIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/events/$slug': typeof EventsSlugRoute
   '/host/new': typeof HostNewRoute
   '/dashboard/events/new': typeof DashboardEventsNewRoute
+  '/dashboard/events/$id/edit': typeof DashboardEventsIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/events/$slug'
     | '/host/new'
     | '/dashboard/events/new'
+    | '/dashboard/events/$id/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/events/$slug'
     | '/host/new'
     | '/dashboard/events/new'
+    | '/dashboard/events/$id/edit'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/events/$slug'
     | '/host/new'
     | '/dashboard/events/new'
+    | '/dashboard/events/$id/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -191,15 +203,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardEventsNewRouteImport
       parentRoute: typeof DashboardRoute
     }
+    '/dashboard/events/$id/edit': {
+      id: '/dashboard/events/$id/edit'
+      path: '/events/$id/edit'
+      fullPath: '/dashboard/events/$id/edit'
+      preLoaderRoute: typeof DashboardEventsIdEditRouteImport
+      parentRoute: typeof DashboardRoute
+    }
   }
 }
 
 interface DashboardRouteChildren {
   DashboardEventsNewRoute: typeof DashboardEventsNewRoute
+  DashboardEventsIdEditRoute: typeof DashboardEventsIdEditRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardEventsNewRoute: DashboardEventsNewRoute,
+  DashboardEventsIdEditRoute: DashboardEventsIdEditRoute,
 }
 
 const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
