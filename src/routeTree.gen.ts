@@ -17,8 +17,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as HostsSlugRouteImport } from './routes/hosts.$slug'
 import { Route as HostNewRouteImport } from './routes/host.new'
 import { Route as EventsSlugRouteImport } from './routes/events.$slug'
+import { Route as DashboardModerationRouteImport } from './routes/dashboard.moderation'
 import { Route as CheckinEventIdRouteImport } from './routes/checkin.$eventId'
+import { Route as HostInviteTokenRouteImport } from './routes/host.invite.$token'
 import { Route as DashboardEventsNewRouteImport } from './routes/dashboard.events.new'
+import { Route as DashboardEventsIdMembersRouteImport } from './routes/dashboard.events.$id.members'
 import { Route as DashboardEventsIdEditRouteImport } from './routes/dashboard.events.$id.edit'
 import { Route as DashboardEventsIdAttendeesRouteImport } from './routes/dashboard.events.$id.attendees'
 
@@ -62,9 +65,19 @@ const EventsSlugRoute = EventsSlugRouteImport.update({
   path: '/events/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardModerationRoute = DashboardModerationRouteImport.update({
+  id: '/moderation',
+  path: '/moderation',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const CheckinEventIdRoute = CheckinEventIdRouteImport.update({
   id: '/checkin/$eventId',
   path: '/checkin/$eventId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HostInviteTokenRoute = HostInviteTokenRouteImport.update({
+  id: '/host/invite/$token',
+  path: '/host/invite/$token',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardEventsNewRoute = DashboardEventsNewRouteImport.update({
@@ -72,6 +85,12 @@ const DashboardEventsNewRoute = DashboardEventsNewRouteImport.update({
   path: '/events/new',
   getParentRoute: () => DashboardRoute,
 } as any)
+const DashboardEventsIdMembersRoute =
+  DashboardEventsIdMembersRouteImport.update({
+    id: '/events/$id/members',
+    path: '/events/$id/members',
+    getParentRoute: () => DashboardRoute,
+  } as any)
 const DashboardEventsIdEditRoute = DashboardEventsIdEditRouteImport.update({
   id: '/events/$id/edit',
   path: '/events/$id/edit',
@@ -91,12 +110,15 @@ export interface FileRoutesByFullPath {
   '/explore': typeof ExploreRoute
   '/tickets': typeof TicketsRoute
   '/checkin/$eventId': typeof CheckinEventIdRoute
+  '/dashboard/moderation': typeof DashboardModerationRoute
   '/events/$slug': typeof EventsSlugRoute
   '/host/new': typeof HostNewRoute
   '/hosts/$slug': typeof HostsSlugRoute
   '/dashboard/events/new': typeof DashboardEventsNewRoute
+  '/host/invite/$token': typeof HostInviteTokenRoute
   '/dashboard/events/$id/attendees': typeof DashboardEventsIdAttendeesRoute
   '/dashboard/events/$id/edit': typeof DashboardEventsIdEditRoute
+  '/dashboard/events/$id/members': typeof DashboardEventsIdMembersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -105,12 +127,15 @@ export interface FileRoutesByTo {
   '/explore': typeof ExploreRoute
   '/tickets': typeof TicketsRoute
   '/checkin/$eventId': typeof CheckinEventIdRoute
+  '/dashboard/moderation': typeof DashboardModerationRoute
   '/events/$slug': typeof EventsSlugRoute
   '/host/new': typeof HostNewRoute
   '/hosts/$slug': typeof HostsSlugRoute
   '/dashboard/events/new': typeof DashboardEventsNewRoute
+  '/host/invite/$token': typeof HostInviteTokenRoute
   '/dashboard/events/$id/attendees': typeof DashboardEventsIdAttendeesRoute
   '/dashboard/events/$id/edit': typeof DashboardEventsIdEditRoute
+  '/dashboard/events/$id/members': typeof DashboardEventsIdMembersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -120,12 +145,15 @@ export interface FileRoutesById {
   '/explore': typeof ExploreRoute
   '/tickets': typeof TicketsRoute
   '/checkin/$eventId': typeof CheckinEventIdRoute
+  '/dashboard/moderation': typeof DashboardModerationRoute
   '/events/$slug': typeof EventsSlugRoute
   '/host/new': typeof HostNewRoute
   '/hosts/$slug': typeof HostsSlugRoute
   '/dashboard/events/new': typeof DashboardEventsNewRoute
+  '/host/invite/$token': typeof HostInviteTokenRoute
   '/dashboard/events/$id/attendees': typeof DashboardEventsIdAttendeesRoute
   '/dashboard/events/$id/edit': typeof DashboardEventsIdEditRoute
+  '/dashboard/events/$id/members': typeof DashboardEventsIdMembersRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -136,12 +164,15 @@ export interface FileRouteTypes {
     | '/explore'
     | '/tickets'
     | '/checkin/$eventId'
+    | '/dashboard/moderation'
     | '/events/$slug'
     | '/host/new'
     | '/hosts/$slug'
     | '/dashboard/events/new'
+    | '/host/invite/$token'
     | '/dashboard/events/$id/attendees'
     | '/dashboard/events/$id/edit'
+    | '/dashboard/events/$id/members'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -150,12 +181,15 @@ export interface FileRouteTypes {
     | '/explore'
     | '/tickets'
     | '/checkin/$eventId'
+    | '/dashboard/moderation'
     | '/events/$slug'
     | '/host/new'
     | '/hosts/$slug'
     | '/dashboard/events/new'
+    | '/host/invite/$token'
     | '/dashboard/events/$id/attendees'
     | '/dashboard/events/$id/edit'
+    | '/dashboard/events/$id/members'
   id:
     | '__root__'
     | '/'
@@ -164,12 +198,15 @@ export interface FileRouteTypes {
     | '/explore'
     | '/tickets'
     | '/checkin/$eventId'
+    | '/dashboard/moderation'
     | '/events/$slug'
     | '/host/new'
     | '/hosts/$slug'
     | '/dashboard/events/new'
+    | '/host/invite/$token'
     | '/dashboard/events/$id/attendees'
     | '/dashboard/events/$id/edit'
+    | '/dashboard/events/$id/members'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -182,6 +219,7 @@ export interface RootRouteChildren {
   EventsSlugRoute: typeof EventsSlugRoute
   HostNewRoute: typeof HostNewRoute
   HostsSlugRoute: typeof HostsSlugRoute
+  HostInviteTokenRoute: typeof HostInviteTokenRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -242,6 +280,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/moderation': {
+      id: '/dashboard/moderation'
+      path: '/moderation'
+      fullPath: '/dashboard/moderation'
+      preLoaderRoute: typeof DashboardModerationRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/checkin/$eventId': {
       id: '/checkin/$eventId'
       path: '/checkin/$eventId'
@@ -249,11 +294,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CheckinEventIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/host/invite/$token': {
+      id: '/host/invite/$token'
+      path: '/host/invite/$token'
+      fullPath: '/host/invite/$token'
+      preLoaderRoute: typeof HostInviteTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard/events/new': {
       id: '/dashboard/events/new'
       path: '/events/new'
       fullPath: '/dashboard/events/new'
       preLoaderRoute: typeof DashboardEventsNewRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/events/$id/members': {
+      id: '/dashboard/events/$id/members'
+      path: '/events/$id/members'
+      fullPath: '/dashboard/events/$id/members'
+      preLoaderRoute: typeof DashboardEventsIdMembersRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/dashboard/events/$id/edit': {
@@ -274,15 +333,19 @@ declare module '@tanstack/react-router' {
 }
 
 interface DashboardRouteChildren {
+  DashboardModerationRoute: typeof DashboardModerationRoute
   DashboardEventsNewRoute: typeof DashboardEventsNewRoute
   DashboardEventsIdAttendeesRoute: typeof DashboardEventsIdAttendeesRoute
   DashboardEventsIdEditRoute: typeof DashboardEventsIdEditRoute
+  DashboardEventsIdMembersRoute: typeof DashboardEventsIdMembersRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardModerationRoute: DashboardModerationRoute,
   DashboardEventsNewRoute: DashboardEventsNewRoute,
   DashboardEventsIdAttendeesRoute: DashboardEventsIdAttendeesRoute,
   DashboardEventsIdEditRoute: DashboardEventsIdEditRoute,
+  DashboardEventsIdMembersRoute: DashboardEventsIdMembersRoute,
 }
 
 const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
@@ -299,7 +362,17 @@ const rootRouteChildren: RootRouteChildren = {
   EventsSlugRoute: EventsSlugRoute,
   HostNewRoute: HostNewRoute,
   HostsSlugRoute: HostsSlugRoute,
+  HostInviteTokenRoute: HostInviteTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
