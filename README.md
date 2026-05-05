@@ -2,6 +2,15 @@
 
 A lightweight platform for publishing free community events, collecting RSVPs with QR tickets, and running check-in at the door.
 
+## Demo accounts
+
+The deployed app is seeded with one host, one upcoming event, and one past event.
+
+- **Host (organizer)**: `organizer@gather.demo` / `Organizer123!` — owns *Riverside Collective* and can edit events, see attendees, and run check-in.
+- **Attendees**: `ada@gather.demo`, `grace@gather.demo`, `alan@gather.demo`, `margaret@gather.demo` — all use password `Attendee123!`.
+
+Try the full loop by signing in as the organizer, opening **Dashboard → Check-in** on the upcoming *Sunset Rooftop Mixer*, then in another window/tab signing in as Ada and going to `/tickets` to grab a ticket code.
+
 ## The four core flows
 
 ### 1. Publish
