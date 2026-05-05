@@ -35,9 +35,13 @@ export const Route = createRootRoute({
       { title: "Gather — Community Events" },
       { name: "description", content: "Publish events, RSVP, and check guests in at the door. A warm, simple tool for community gatherings." },
       { property: "og:title", content: "Gather — Community Events" },
-      { property: "og:description", content: "Publish events, RSVP, and check guests in at the door." },
+      { property: "og:description", content: "Publish events, RSVP, and check guests in at the door. A warm, simple tool for community gatherings." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Gather — Community Events" },
+      { name: "twitter:description", content: "Publish events, RSVP, and check guests in at the door. A warm, simple tool for community gatherings." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/595f9559-4bc0-43b0-b90e-3a70d6fab9f1" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/595f9559-4bc0-43b0-b90e-3a70d6fab9f1" },
     ],
     links: [
       {
