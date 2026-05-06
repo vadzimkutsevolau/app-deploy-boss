@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { slugify } from "@/lib/format";
 import type { EventRow, HostRow } from "@/lib/queries";
 
-export const Route = createFileRoute("/dashboard")({ component: Dashboard });
+export const Route = createFileRoute("/dashboard/")({ component: Dashboard });
 
 function Dashboard() {
   const { user, loading } = useAuth();
