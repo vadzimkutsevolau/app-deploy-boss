@@ -72,9 +72,9 @@ const EventsSlugRoute = EventsSlugRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardModerationRoute = DashboardModerationRouteImport.update({
-  id: '/moderation',
-  path: '/moderation',
-  getParentRoute: () => DashboardRoute,
+  id: '/dashboard/moderation',
+  path: '/dashboard/moderation',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const CheckinEventIdRoute = CheckinEventIdRouteImport.update({
   id: '/checkin/$eventId',
@@ -87,26 +87,26 @@ const HostInviteTokenRoute = HostInviteTokenRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardEventsNewRoute = DashboardEventsNewRouteImport.update({
-  id: '/events/new',
-  path: '/events/new',
-  getParentRoute: () => DashboardRoute,
+  id: '/dashboard/events/new',
+  path: '/dashboard/events/new',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardEventsIdMembersRoute =
   DashboardEventsIdMembersRouteImport.update({
-    id: '/events/$id/members',
-    path: '/events/$id/members',
-    getParentRoute: () => DashboardRoute,
+    id: '/dashboard/events/$id/members',
+    path: '/dashboard/events/$id/members',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const DashboardEventsIdEditRoute = DashboardEventsIdEditRouteImport.update({
-  id: '/events/$id/edit',
-  path: '/events/$id/edit',
-  getParentRoute: () => DashboardRoute,
+  id: '/dashboard/events/$id/edit',
+  path: '/dashboard/events/$id/edit',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardEventsIdAttendeesRoute =
   DashboardEventsIdAttendeesRouteImport.update({
-    id: '/events/$id/attendees',
-    path: '/events/$id/attendees',
-    getParentRoute: () => DashboardRoute,
+    id: '/dashboard/events/$id/attendees',
+    path: '/dashboard/events/$id/attendees',
+    getParentRoute: () => rootRouteImport,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -228,11 +228,16 @@ export interface RootRouteChildren {
   MyEventsRoute: typeof MyEventsRoute
   TicketsRoute: typeof TicketsRoute
   CheckinEventIdRoute: typeof CheckinEventIdRoute
+  DashboardModerationRoute: typeof DashboardModerationRoute
   EventsSlugRoute: typeof EventsSlugRoute
   HostNewRoute: typeof HostNewRoute
   HostsSlugRoute: typeof HostsSlugRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardEventsNewRoute: typeof DashboardEventsNewRoute
   HostInviteTokenRoute: typeof HostInviteTokenRoute
+  DashboardEventsIdAttendeesRoute: typeof DashboardEventsIdAttendeesRoute
+  DashboardEventsIdEditRoute: typeof DashboardEventsIdEditRoute
+  DashboardEventsIdMembersRoute: typeof DashboardEventsIdMembersRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -302,10 +307,10 @@ declare module '@tanstack/react-router' {
     }
     '/dashboard/moderation': {
       id: '/dashboard/moderation'
-      path: '/moderation'
+      path: '/dashboard/moderation'
       fullPath: '/dashboard/moderation'
       preLoaderRoute: typeof DashboardModerationRouteImport
-      parentRoute: typeof DashboardRoute
+      parentRoute: typeof rootRouteImport
     }
     '/checkin/$eventId': {
       id: '/checkin/$eventId'
@@ -323,31 +328,31 @@ declare module '@tanstack/react-router' {
     }
     '/dashboard/events/new': {
       id: '/dashboard/events/new'
-      path: '/events/new'
+      path: '/dashboard/events/new'
       fullPath: '/dashboard/events/new'
       preLoaderRoute: typeof DashboardEventsNewRouteImport
-      parentRoute: typeof DashboardRoute
+      parentRoute: typeof rootRouteImport
     }
     '/dashboard/events/$id/members': {
       id: '/dashboard/events/$id/members'
-      path: '/events/$id/members'
+      path: '/dashboard/events/$id/members'
       fullPath: '/dashboard/events/$id/members'
       preLoaderRoute: typeof DashboardEventsIdMembersRouteImport
-      parentRoute: typeof DashboardRoute
+      parentRoute: typeof rootRouteImport
     }
     '/dashboard/events/$id/edit': {
       id: '/dashboard/events/$id/edit'
-      path: '/events/$id/edit'
+      path: '/dashboard/events/$id/edit'
       fullPath: '/dashboard/events/$id/edit'
       preLoaderRoute: typeof DashboardEventsIdEditRouteImport
-      parentRoute: typeof DashboardRoute
+      parentRoute: typeof rootRouteImport
     }
     '/dashboard/events/$id/attendees': {
       id: '/dashboard/events/$id/attendees'
-      path: '/events/$id/attendees'
+      path: '/dashboard/events/$id/attendees'
       fullPath: '/dashboard/events/$id/attendees'
       preLoaderRoute: typeof DashboardEventsIdAttendeesRouteImport
-      parentRoute: typeof DashboardRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -359,21 +364,17 @@ const rootRouteChildren: RootRouteChildren = {
   MyEventsRoute: MyEventsRoute,
   TicketsRoute: TicketsRoute,
   CheckinEventIdRoute: CheckinEventIdRoute,
+  DashboardModerationRoute: DashboardModerationRoute,
   EventsSlugRoute: EventsSlugRoute,
   HostNewRoute: HostNewRoute,
   HostsSlugRoute: HostsSlugRoute,
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardEventsNewRoute: DashboardEventsNewRoute,
   HostInviteTokenRoute: HostInviteTokenRoute,
+  DashboardEventsIdAttendeesRoute: DashboardEventsIdAttendeesRoute,
+  DashboardEventsIdEditRoute: DashboardEventsIdEditRoute,
+  DashboardEventsIdMembersRoute: DashboardEventsIdMembersRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
