@@ -69,11 +69,27 @@ function EventPage() {
     setBusy(true);
     const status = full ? "waitlist" : "going";
     const waitlist_position = full ? counts.waitlist + 1 : null;
-    const { data, error } = await supabase
+    // Check for an existing RSVP row (e.g. previously cancelled) and update it
+    // instead of inserting, since (event_id, user_id) is unique.
+    const { data: existing } = await supabase
       .from("rsvps")
-      .insert({ event_id: event.id, user_id: user.id, status, waitlist_position })
-      .select()
-      .single();
+      .select("*")
+      .eq("event_id", event.id)
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    const { data, error } = existing
+      ? await supabase
+          .from("rsvps")
+          .update({ status, waitlist_position })
+          .eq("id", existing.id)
+          .select()
+          .single()
+      : await supabase
+          .from("rsvps")
+          .insert({ event_id: event.id, user_id: user.id, status, waitlist_position })
+          .select()
+          .single();
     setBusy(false);
     if (error) toast.error(error.message);
     else {
